@@ -149,6 +149,16 @@ jobs:
             echo "$HEALTH"
             [[ "$HEALTH" == *'"status":"UP"'* ]]
 
+        - name: Verify Email Secrets
+        run: |
+          echo "Username length: ${#EMAIL_USERNAME}"
+          echo "Password length: ${#EMAIL_PASSWORD}"
+          echo "To length: ${#EMAIL_TO}"
+        env:
+          EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+
       - name: Send Deployment Report
         if: always()
         uses: dawidd6/action-send-mail@v6
